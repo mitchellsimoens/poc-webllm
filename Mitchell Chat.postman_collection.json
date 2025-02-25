@@ -18,7 +18,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"doc-123\",\n    \"text\": \"Intro to WebLLM and AI\",\n    \"metadata\": { \"title\": \"WebLLM Basics\", \"category\": \"AI\" }\n  }",
+					"raw": "{\n    \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"text\": \"Alachua County holidays are: New Year's Day, Martin Luther King, JR Day, Memorial Day, Juneteenth, Independence Day, Labor Day, Veterans Day, Thanksgiving Day, Thanksgiving Holiday (day after Thanksgiving), Christmas Day and Christmas Holiday (day after Christmas)\",\n    \"metadata\": { \"title\": \"Alachua County Holidays\" }\n  }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -44,7 +44,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/retrieve?q=machine+learning&top_k=3",
+					"raw": "{{BASE_URL}}/retrieve?q=alachua county holidays&top_k=5",
 					"host": [
 						"{{BASE_URL}}"
 					],
@@ -54,11 +54,11 @@
 					"query": [
 						{
 							"key": "q",
-							"value": "machine+learning"
+							"value": "alachua county holidays"
 						},
 						{
 							"key": "top_k",
-							"value": "3"
+							"value": "5"
 						}
 					]
 				},
@@ -83,11 +83,39 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "doc-123"
+							"value": "550e8400-e29b-41d4-a716-446655440000"
 						}
 					]
 				},
 				"description": "Generated from cURL: curl -X DELETE http://localhost:3000/embed/doc-123"
+			},
+			"response": []
+		},
+		{
+			"name": "/list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/list?limit=50&offset=0",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"list"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "50"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl \"http://localhost:3000/list?limit=10&offset=0\""
 			},
 			"response": []
 		}
