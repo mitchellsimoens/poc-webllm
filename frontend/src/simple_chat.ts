@@ -9,6 +9,30 @@ function getElementAndCheck(id: string): HTMLElement {
   return element;
 }
 
+async function fetchContext(query: string): Promise<string> {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/retrieve?q=${encodeURIComponent(query)}&top_k=5`,
+    );
+    const data = await response.json();
+
+    if (!data.results || data.results.length === 0) {
+      return "No additional context available.";
+    }
+
+    // Extract relevant text from retrieved documents
+    return (
+      data.results
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .map((item: any) => item.payload?.text || "No text available")
+        .join("\n")
+    );
+  } catch (error) {
+    console.error("Error fetching context:", error);
+    return "No additional context available due to an error.";
+  }
+}
+
 class ChatUI {
   private uiChat: HTMLElement;
   private uiChatInput: HTMLInputElement;
@@ -299,9 +323,10 @@ class ChatUI {
     try {
       let curMessage = "";
       let usage: webllm.CompletionUsage | undefined = undefined;
+      const context = await fetchContext(prompt);
       const completion = await this.engine.chat.completions.create({
         stream: true,
-        messages: this.chatHistory,
+        messages: [{ role: "system", content: context }, ...this.chatHistory],
         stream_options: { include_usage: true },
       });
       // TODO(Charlie): Processing of � requires changes

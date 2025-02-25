@@ -4,6 +4,7 @@
     "private": true,
     "workspaces": ["backend", "frontend"],
     "scripts": {
+        "clean": "npx npkill -D -y",
         "lint": "eslint ."
     },
     "devDependencies": {

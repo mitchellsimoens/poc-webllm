@@ -1,4 +1,5 @@
 import Fastify from "fastify";
+import cors from "@fastify/cors";
 import {
   Type,
   Static,
@@ -16,6 +17,12 @@ const qdrant = new QdrantClient({ url: "http://localhost:6333" });
 const COLLECTION_NAME = "documents";
 
 let embedder: FeatureExtractionPipeline;
+
+// Enable CORS
+await fastify.register(cors, {
+  origin: "http://localhost:8883", // Allow frontend access
+  methods: ["GET", "POST", "DELETE"], // Allowed HTTP methods
+});
 
 // Ensure Qdrant collection exists
 async function ensureCollection() {
@@ -97,7 +104,16 @@ fastify.withTypeProvider<TypeBoxTypeProvider>().post<{
 
     // Insert new embedding
     await qdrant.upsert(COLLECTION_NAME, {
-      points: [{ id, vector: Array.from(embedding.data), payload: metadata }],
+      points: [
+        {
+          id,
+          vector: Array.from(embedding.data),
+          payload: {
+            text,
+            ...metadata,
+          },
+        },
+      ],
     });
 
     return reply.send({
