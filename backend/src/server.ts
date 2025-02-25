@@ -19,8 +19,6 @@ const fastify = Fastify({
               colorize: true, // Enable colors
               translateTime: "yyyy-mm-dd HH:MM:ss", // Readable timestamps
               ignore: "pid,hostname", // Hide unnecessary fields
-              // messageFormat:
-              // "{req.method} {req.url} {res.statusCode} - {responseTime}ms",
             },
           },
         },
