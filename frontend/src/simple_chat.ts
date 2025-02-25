@@ -40,7 +40,8 @@ class ChatUI {
   private uiChatInfoLabel: HTMLLabelElement;
   private engine: webllm.MLCEngineInterface | webllm.WebWorkerMLCEngine;
   private config: webllm.AppConfig = appConfig;
-  private selectedModel = "Mistral-7B-Instruct-v0.3-q4f16_1-MLC";
+  // private selectedModel = "Mistral-7B-Instruct-v0.3-q4f16_1-MLC";
+  private selectedModel = "Llama-3.1-8B-Instruct-q4f32_1-MLC";
   private chatLoaded = false;
   private requestInProgress = false;
   private chatHistory: webllm.ChatCompletionMessageParam[] = [];
@@ -49,7 +50,8 @@ class ChatUI {
   private chatRequestChain: Promise<void> = Promise.resolve();
 
   private systemChat: string[] = [
-    `Todays date and time is ${new Date().toLocaleString()}`,
+    "You are a helpful, respectful and honest assistant.",
+    `Todays date and time is ${new Date().toLocaleString()}.`,
   ];
 
   /**
@@ -354,6 +356,9 @@ class ChatUI {
         stream: true,
         messages: [{ role: "system", content: context }, ...this.chatHistory],
         stream_options: { include_usage: true },
+        temperature: 0,
+        top_p: 0.1,
+        seed: 42,
       });
       // TODO(Charlie): Processing of � requires changes
       for await (const chunk of completion) {
