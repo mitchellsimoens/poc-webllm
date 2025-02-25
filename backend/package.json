@@ -1,0 +1,19 @@
+{
+  "name": "mitchell-chat-backend",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "start": "bun run ./src/server.ts"
+  },
+  "dependencies": {
+    "@fastify/type-provider-typebox": "^5.1.0",
+    "@qdrant/js-client-rest": "^1.13.0",
+    "@xenova/transformers": "^2.17.2",
+    "fastify": "^5.2.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3"
+  }
+}
