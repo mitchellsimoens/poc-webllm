@@ -13,14 +13,40 @@ const fastify = Fastify({ logger: true }).setValidatorCompiler(
 );
 
 const qdrant = new QdrantClient({ url: "http://localhost:6333" });
+const COLLECTION_NAME = "documents";
 
 let embedder: FeatureExtractionPipeline;
+
+// Ensure Qdrant collection exists
+async function ensureCollection() {
+  try {
+    const collections = await qdrant.getCollections();
+    const exists = collections.collections.some(
+      (col) => col.name === COLLECTION_NAME,
+    );
+
+    if (!exists) {
+      await qdrant.createCollection(COLLECTION_NAME, {
+        vectors: { size: 384, distance: "Cosine" }, // Adjust size based on embedding model
+      });
+      console.log(`✅ Collection '${COLLECTION_NAME}' created.`);
+    } else {
+      console.log(`✅ Collection '${COLLECTION_NAME}' already exists.`);
+    }
+  } catch (error) {
+    console.error("❌ Failed to check or create collection:", error);
+    process.exit(1);
+  }
+}
 
 // Load the embedding model on startup
 async function loadEmbedder() {
   embedder = await pipeline("feature-extraction", "Xenova/all-MiniLM-L6-v2");
 }
-loadEmbedder();
+
+// Ensure the collection and embedding model are ready before starting
+await ensureCollection();
+await loadEmbedder();
 
 // Define schemas for request validation
 const EmbedSchema = Type.Object({
@@ -52,10 +78,10 @@ fastify.withTypeProvider<TypeBoxTypeProvider>().post<{
     });
 
     // Check if the ID already exists in Qdrant
-    const existing = await qdrant.getCollection("documents").then(
+    const existing = await qdrant.getCollection(COLLECTION_NAME).then(
       async () => {
         try {
-          const result = await qdrant.retrieve("documents", { ids: [id] });
+          const result = await qdrant.retrieve(COLLECTION_NAME, { ids: [id] });
           return result.length > 0;
         } catch {
           return false;
@@ -66,11 +92,11 @@ fastify.withTypeProvider<TypeBoxTypeProvider>().post<{
 
     if (existing) {
       // Delete the old embedding before inserting the new one
-      await qdrant.delete("documents", { points: [id] });
+      await qdrant.delete(COLLECTION_NAME, { points: [id] });
     }
 
     // Insert new embedding
-    await qdrant.upsert("documents", {
+    await qdrant.upsert(COLLECTION_NAME, {
       points: [{ id, vector: Array.from(embedding.data), payload: metadata }],
     });
 
@@ -82,7 +108,9 @@ fastify.withTypeProvider<TypeBoxTypeProvider>().post<{
     });
   } catch (error) {
     fastify.log.error(error);
-    return reply.status(500).send({ error: "Failed to process embedding" });
+    return reply
+      .status(500)
+      .send({ error: "Failed to process embedding", raw: error });
   }
 });
 
@@ -100,7 +128,7 @@ fastify.withTypeProvider<TypeBoxTypeProvider>().get<{
     });
 
     // Search in Qdrant
-    const results = await qdrant.search("documents", {
+    const results = await qdrant.search(COLLECTION_NAME, {
       vector: Array.from(queryEmbedding.data),
       limit: top_k,
       with_payload: true,
@@ -109,7 +137,7 @@ fastify.withTypeProvider<TypeBoxTypeProvider>().get<{
     return reply.send({ results });
   } catch (error) {
     fastify.log.error(error);
-    return reply.status(500).send({ error: "Retrieval failed" });
+    return reply.status(500).send({ error: "Retrieval failed", raw: error });
   }
 });
 

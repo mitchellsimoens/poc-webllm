@@ -128,5 +128,8 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "typescript.validate.enable": true,
   "css.completion.completePropertyWithSemicolon": false,
-  "prettier.semi": false
+  "prettier.semi": false,
+  "cSpell.words": [
+    "qdrant"
+  ]
 }
