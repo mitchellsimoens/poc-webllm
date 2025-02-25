@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "ffd7d0cb-06c4-430d-aba1-c349dea20c0c",
+		"name": "Mitchell Chat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2959376"
+	},
+	"item": [
+		{
+			"name": "/embed",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"doc-123\",\n    \"text\": \"Intro to WebLLM and AI\",\n    \"metadata\": { \"title\": \"WebLLM Basics\", \"category\": \"AI\" }\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/embed",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"embed"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST http://localhost:3000/embed \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"id\": \"doc-123\",\n    \"text\": \"Intro to WebLLM and AI\",\n    \"metadata\": { \"title\": \"WebLLM Basics\", \"category\": \"AI\" }\n  }'"
+			},
+			"response": []
+		},
+		{
+			"name": "/retrieve",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/retrieve?q=machine+learning&top_k=3",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"retrieve"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "machine+learning"
+						},
+						{
+							"key": "top_k",
+							"value": "3"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl \"http://localhost:3000/retrieve?q=machine+learning&top_k=3\""
+			},
+			"response": []
+		},
+		{
+			"name": "/embed/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/embed/:id",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"embed",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "doc-123"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X DELETE http://localhost:3000/embed/doc-123"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
