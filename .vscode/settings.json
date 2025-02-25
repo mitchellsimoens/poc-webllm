@@ -130,6 +130,7 @@
   "css.completion.completePropertyWithSemicolon": false,
   "prettier.semi": false,
   "cSpell.words": [
-    "qdrant"
+    "qdrant",
+    "webllm"
   ]
 }

@@ -9,24 +9,25 @@ function getElementAndCheck(id: string): HTMLElement {
   return element;
 }
 
-async function fetchContext(query: string): Promise<string> {
+async function fetchContext(
+  query: string,
+  systemChat?: string[],
+): Promise<string> {
   try {
     const response = await fetch(
       `http://localhost:3000/retrieve?q=${encodeURIComponent(query)}&top_k=5`,
     );
     const data = await response.json();
+    const systemContext = systemChat ? `${systemChat.join("\n")}\n` : "";
 
     if (!data.results || data.results.length === 0) {
-      return "No additional context available.";
+      return `${systemContext}No additional context available.`;
     }
 
-    // Extract relevant text from retrieved documents
-    return (
-      data.results
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .map((item: any) => item.payload?.text || "No text available")
-        .join("\n")
-    );
+    return `${systemContext}${data.results
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .map((item: any) => item.payload?.text || "No text available")
+      .join("\n")}`;
   } catch (error) {
     console.error("Error fetching context:", error);
     return "No additional context available due to an error.";
@@ -46,6 +47,10 @@ class ChatUI {
   // We use a request chain to ensure that
   // all requests send to chat are sequentialized
   private chatRequestChain: Promise<void> = Promise.resolve();
+
+  private systemChat: string[] = [
+    `Todays date and time is ${new Date().toLocaleString()}`,
+  ];
 
   /**
    * An asynchronous factory constructor since we need to await getMaxStorageBufferBindingSize();
@@ -68,11 +73,30 @@ class ChatUI {
       chatUI.onGenerate();
     };
     // TODO: find other alternative triggers
-    getElementAndCheck("chatui-input").onkeypress = (event) => {
-      if (event.keyCode === 13) {
+    getElementAndCheck("chatui-input").addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
         chatUI.onGenerate();
+      } else if (event.key === "ArrowUp") {
+        const lastMessage = chatUI.chatHistory
+          .slice()
+          .reverse()
+          .find((message) => message.role === "user");
+
+        if (lastMessage && event.target) {
+          const inputElement = event.target as HTMLInputElement;
+
+          inputElement.value = lastMessage.content as string;
+
+          // Set the caret at the end of the input value
+          requestAnimationFrame(() => {
+            inputElement.setSelectionRange(
+              inputElement.value.length,
+              inputElement.value.length,
+            );
+          });
+        }
       }
-    };
+    });
 
     // When we detect low maxStorageBufferBindingSize, we assume that the device (e.g. an Android
     // phone) can only handle small models and make all other models unselectable. Otherwise, the
@@ -323,7 +347,7 @@ class ChatUI {
     try {
       let curMessage = "";
       let usage: webllm.CompletionUsage | undefined = undefined;
-      const context = await fetchContext(prompt);
+      const context = await fetchContext(prompt, this.systemChat);
       const completion = await this.engine.chat.completions.create({
         stream: true,
         messages: [{ role: "system", content: context }, ...this.chatHistory],

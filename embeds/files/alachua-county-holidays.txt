@@ -13,3 +13,5 @@ Alachua County holidays are:
 - Thanksgiving Holiday (day after Thanksgiving)
 - Christmas Day
 - Christmas Holiday (day after Christmas)
+
+Waste pickup may be delayed if it falls on one of these holidays.
