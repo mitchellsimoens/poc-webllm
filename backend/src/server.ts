@@ -114,6 +114,28 @@ fastify.withTypeProvider<TypeBoxTypeProvider>().post<{
   }
 });
 
+// **DELETE /embed/:id** - Remove an embedding from Qdrant
+fastify.withTypeProvider<TypeBoxTypeProvider>().delete<{
+  Params: { id: string | number };
+}>("/embed/:id", async (request, reply) => {
+  try {
+    const { id } = request.params;
+
+    // Attempt to delete the embedding
+    await qdrant.delete(COLLECTION_NAME, { points: [id] });
+
+    return reply.send({
+      success: true,
+      message: `Embedding with ID ${id} removed from Qdrant`,
+    });
+  } catch (error) {
+    fastify.log.error(error);
+    return reply
+      .status(500)
+      .send({ error: "Failed to remove embedding", raw: error });
+  }
+});
+
 // **GET /retrieve** - Search for similar documents
 fastify.withTypeProvider<TypeBoxTypeProvider>().get<{
   Querystring: RetrieveRequest;
