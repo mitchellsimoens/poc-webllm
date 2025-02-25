@@ -1,0 +1,12 @@
+{
+  "name": "mitchell-chat-embeds",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "start": "bun run ./embed.ts"
+  },
+  "dependencies": {
+    "uuid": "^11.1.0"
+  }
+}

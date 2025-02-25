@@ -2,7 +2,7 @@
     "name": "mitchell-chat",
     "version": "0.1.0",
     "private": true,
-    "workspaces": ["backend", "frontend"],
+    "workspaces": ["backend", "embed", "frontend"],
     "scripts": {
         "clean": "npx npkill -D -y",
         "lint": "eslint ."
