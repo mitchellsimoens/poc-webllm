@@ -40,7 +40,7 @@ class ChatUI {
   private uiChatInfoLabel: HTMLLabelElement;
   private engine: webllm.MLCEngineInterface | webllm.WebWorkerMLCEngine;
   private config: webllm.AppConfig = appConfig;
-  private selectedModel: string;
+  private selectedModel = "Mistral-7B-Instruct-v0.3-q4f16_1-MLC";
   private chatLoaded = false;
   private requestInProgress = false;
   private chatHistory: webllm.ChatCompletionMessageParam[] = [];
@@ -138,7 +138,9 @@ class ChatUI {
       const opt = document.createElement("option");
       opt.value = item.model_id;
       opt.innerHTML = item.model_id;
-      opt.selected = i == 0;
+      opt.selected = chatUI.selectedModel
+        ? chatUI.selectedModel === item.model_id
+        : i == 0;
       if (
         (restrictModels &&
           (item.low_resource_required === undefined ||
