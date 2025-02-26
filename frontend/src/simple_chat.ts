@@ -172,6 +172,8 @@ class ChatUI {
       chatUI.onSelectChange(modelSelector);
     };
 
+    chatUI.asyncInitChat();
+
     return chatUI;
   };
 
@@ -341,6 +343,24 @@ class ChatUI {
       return;
     }
 
+    const startTime = performance.now();
+    const stats = {
+      "Prompt Tokens": 0,
+      "Completion Tokens": 0,
+      "Total Tokens": 0,
+      "Prefill Speed": "",
+      "Decoding Speed": "",
+      // performance.now() items
+      "Time To First Prompt": {
+        ms: 0,
+        sec: 0,
+      },
+      "Total Time": {
+        ms: 0,
+        sec: 0,
+      },
+    };
+
     this.appendUserMessage(prompt);
     this.uiChatInput.value = "";
     this.uiChatInput.setAttribute("placeholder", "Generating...");
@@ -360,8 +380,20 @@ class ChatUI {
         top_p: 0.1,
         seed: 42,
       });
+      let hasResponse = false;
+
       // TODO(Charlie): Processing of � requires changes
       for await (const chunk of completion) {
+        if (!hasResponse) {
+          const timeToFirstResponse = performance.now();
+
+          stats["Time To First Prompt"].ms = timeToFirstResponse - startTime;
+          stats["Time To First Prompt"].sec =
+            (timeToFirstResponse - startTime) / 1000;
+
+          hasResponse = true;
+        }
+
         const curDelta = chunk.choices[0]?.delta.content;
         if (curDelta) {
           curMessage += curDelta;
@@ -372,11 +404,13 @@ class ChatUI {
         }
       }
       if (usage) {
-        this.uiChatInfoLabel.innerHTML =
-          `prompt_tokens: ${usage.prompt_tokens}, ` +
-          `completion_tokens: ${usage.completion_tokens}, ` +
-          `prefill: ${usage.extra.prefill_tokens_per_s.toFixed(4)} tokens/sec, ` +
-          `decoding: ${usage.extra.decode_tokens_per_s.toFixed(4)} tokens/sec`;
+        stats["Prompt Tokens"] = usage.prompt_tokens;
+        stats["Completion Tokens"] = usage.completion_tokens;
+        stats["Total Tokens"] = usage.total_tokens;
+        stats["Prefill Speed"] =
+          `${usage.extra.prefill_tokens_per_s.toFixed(4)} tokens/sec`;
+        stats["Decoding Speed"] =
+          `${usage.extra.decode_tokens_per_s.toFixed(4)} tokens/sec`;
       }
       const finalMessage = await this.engine.getMessage();
       this.updateLastMessage("left", finalMessage); // TODO: Remove this after � issue is fixed
@@ -386,6 +420,14 @@ class ChatUI {
       console.log(err.stack);
       await this.unloadChat();
     }
+
+    const timeToTotalResponse = performance.now();
+
+    stats["Total Time"].ms = timeToTotalResponse - startTime;
+    stats["Total Time"].sec = (timeToTotalResponse - startTime) / 1000;
+
+    this.uiChatInfoLabel.innerHTML = JSON.stringify(stats, null, 2);
+
     this.uiChatInput.setAttribute("placeholder", "Enter your message...");
     this.requestInProgress = false;
   }
