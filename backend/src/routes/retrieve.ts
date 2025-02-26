@@ -13,6 +13,8 @@ const RetrieveSchema = Type.Object({
 
 type RetrieveRequest = Static<typeof RetrieveSchema>;
 
+const SCORE_THRESHOLD = 0.2;
+
 export const retrieveEmbeds = (fastify: FastifyInstance) =>
   fastify.withTypeProvider<TypeBoxTypeProvider>().get<{
     Querystring: RetrieveRequest;
@@ -32,6 +34,7 @@ export const retrieveEmbeds = (fastify: FastifyInstance) =>
         vector: Array.from(queryEmbedding.data),
         limit: top_k,
         with_payload: true,
+        score_threshold: SCORE_THRESHOLD,
       });
 
       return reply.send({ results });

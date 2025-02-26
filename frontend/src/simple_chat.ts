@@ -51,7 +51,7 @@ class ChatUI {
 
   private systemChat: string[] = [
     "You are a helpful, respectful and honest assistant.",
-    `Todays date and time is ${new Date().toLocaleString()}.`,
+    `Today's date and time is ${new Date().toISOString()}.`,
   ];
 
   /**
