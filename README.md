@@ -62,6 +62,14 @@ This project is a proof of concept for a web-based language model (WebLLM) chat 
 - **GET /retrieve:** Search for similar documents.
 - **GET /list:** List stored embeddings with pagination.
 
+## Sample Prompts
+
+> Return the quarterly profits for the year 2024
+
+> Provide CSV for the yearly total sales and year-over-year growth rate by year for all sales data
+
+> What was the sales for the first half of 2018?
+
 ## License
 
 This project is licensed under the MIT License.
