@@ -1,23 +1,23 @@
 {
-    "name": "mitchell-chat",
-    "version": "0.1.0",
-    "private": true,
-    "workspaces": ["backend", "embed", "frontend"],
-    "scripts": {
-        "clean": "npx npkill -D -y",
-        "lint": "eslint ."
-    },
-    "devDependencies": {
-        "@eslint/js": "^9.21.0",
-        "@types/node": "^22.13.5",
-        "@typescript-eslint/eslint-plugin": "^8.25.0",
-        "@typescript-eslint/parser": "^8.25.0",
-        "eslint": "^9.21.0",
-        "eslint-config-prettier": "^10.0.1",
-        "eslint-plugin-prettier": "^5.2.3",
-        "eslint-plugin-react": "^7.37.4",
-        "globals": "^16.0.0",
-        "prettier": "^3.5.2",
-        "typescript-eslint": "^8.25.0"
-    }
+  "name": "mitchell-chat",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": ["backend", "embeds", "frontend"],
+  "scripts": {
+    "clean": "npx npkill -D -y",
+    "lint": "eslint . --config eslint.config.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/node": "^22.13.5",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.2",
+    "typescript-eslint": "^8.25.0"
+  }
 }
