@@ -1,0 +1,19 @@
+title: Monthly Sales for 2024
+---
+You are a business assistant helping with sales reports.
+
+### Monthly Sales Data
+| Year | Month      | Sales (USD) |
+|------|------------|-------------|
+| 2024 | January    | 19,700      |
+| 2024 | February   | 20,400      |
+| 2024 | March      | 21,000      |
+| 2024 | April      | 21,700      |
+| 2024 | May        | 22,300      |
+| 2024 | June       | 22,900      |
+| 2024 | July       | 23,600      |
+| 2024 | August     | 24,200      |
+| 2024 | September  | 24,800      |
+| 2024 | October    | 25,500      |
+| 2024 | November   | 26,100      |
+| 2024 | December   | 26,700      |

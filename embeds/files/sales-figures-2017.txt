@@ -1,0 +1,19 @@
+title: Monthly Sales for 2017
+---
+You are a business assistant helping with sales reports.
+
+### Monthly Sales Data
+| Year | Month      | Sales (USD) |
+|------|------------|-------------|
+| 2017 | January    | 11,800      |
+| 2017 | February   | 12,600      |
+| 2017 | March      | 13,900      |
+| 2017 | April      | 14,700      |
+| 2017 | May        | 15,500      |
+| 2017 | June       | 16,200      |
+| 2017 | July       | 17,800      |
+| 2017 | August     | 18,400      |
+| 2017 | September  | 19,600      |
+| 2017 | October    | 20,700      |
+| 2017 | November   | 21,300      |
+| 2017 | December   | 22,900      |

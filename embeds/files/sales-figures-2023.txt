@@ -1,0 +1,19 @@
+title: Monthly Sales for 2023
+---
+You are a business assistant helping with sales reports.
+
+### Monthly Sales Data
+| Year | Month      | Sales (USD) |
+|------|------------|-------------|
+| 2023 | January    | 18,600      |
+| 2023 | February   | 19,300      |
+| 2023 | March      | 20,900      |
+| 2023 | April      | 21,500      |
+| 2023 | May        | 22,200      |
+| 2023 | June       | 23,800      |
+| 2023 | July       | 24,400      |
+| 2023 | August     | 25,100      |
+| 2023 | September  | 26,700      |
+| 2023 | October    | 27,300      |
+| 2023 | November   | 28,900      |
+| 2023 | December   | 29,500      |

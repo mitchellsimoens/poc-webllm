@@ -20,7 +20,7 @@ export const retrieveEmbeds = (fastify: FastifyInstance) =>
     Querystring: RetrieveRequest;
   }>("/retrieve", { schema: { querystring: RetrieveSchema } }, async (request, reply) => {
     try {
-      const { q, top_k = 5 } = request.query;
+      const { q, top_k = 20 } = request.query;
       const embedder = await getEmbedder();
 
       // Generate query embedding

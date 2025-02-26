@@ -1,0 +1,19 @@
+title: Monthly Sales for 2015
+---
+You are a business assistant helping with sales reports.
+
+### Monthly Sales Data
+| Year | Month      | Sales (USD) |
+|------|------------|-------------|
+| 2015 | January    | 10,000      |
+| 2015 | February   | 11,500      |
+| 2015 | March      | 12,200      |
+| 2015 | April      | 13,000      |
+| 2015 | May        | 14,300      |
+| 2015 | June       | 15,800      |
+| 2015 | July       | 16,000      |
+| 2015 | August     | 17,200      |
+| 2015 | September  | 18,100      |
+| 2015 | October    | 19,400      |
+| 2015 | November   | 20,700      |
+| 2015 | December   | 21,300      |

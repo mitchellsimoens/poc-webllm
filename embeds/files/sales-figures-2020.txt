@@ -1,0 +1,19 @@
+title: Monthly Sales for 2020
+---
+You are a business assistant helping with sales reports.
+
+### Monthly Sales Data
+| Year | Month      | Sales (USD) |
+|------|------------|-------------|
+| 2020 | January    | 15,100      |
+| 2020 | February   | 16,800      |
+| 2020 | March      | 17,500      |
+| 2020 | April      | 18,200      |
+| 2020 | May        | 19,600      |
+| 2020 | June       | 20,300      |
+| 2020 | July       | 21,900      |
+| 2020 | August     | 22,500      |
+| 2020 | September  | 23,100      |
+| 2020 | October    | 24,700      |
+| 2020 | November   | 25,300      |
+| 2020 | December   | 26,900      |

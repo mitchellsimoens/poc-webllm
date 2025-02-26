@@ -1,0 +1,19 @@
+title: Monthly Sales for 2022
+---
+You are a business assistant helping with sales reports.
+
+### Monthly Sales Data
+| Year | Month      | Sales (USD) |
+|------|------------|-------------|
+| 2022 | January    | 17,500      |
+| 2022 | February   | 18,200      |
+| 2022 | March      | 19,800      |
+| 2022 | April      | 20,400      |
+| 2022 | May        | 21,100      |
+| 2022 | June       | 22,700      |
+| 2022 | July       | 23,300      |
+| 2022 | August     | 24,900      |
+| 2022 | September  | 25,500      |
+| 2022 | October    | 26,200      |
+| 2022 | November   | 27,800      |
+| 2022 | December   | 28,400      |

@@ -15,7 +15,7 @@ async function fetchContext(
 ): Promise<string> {
   try {
     const response = await fetch(
-      `http://localhost:3000/retrieve?q=${encodeURIComponent(query)}&top_k=5`,
+      `http://localhost:3000/retrieve?q=${encodeURIComponent(query)}`,
     );
     const data = await response.json();
     const systemContext = systemChat ? `${systemChat.join("\n")}\n` : "";

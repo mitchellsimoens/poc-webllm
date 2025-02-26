@@ -1,0 +1,19 @@
+title: Monthly Sales for 2019
+---
+You are a business assistant helping with sales reports.
+
+### Monthly Sales Data
+| Year | Month      | Sales (USD) |
+|------|------------|-------------|
+| 2019 | January    | 14,500      |
+| 2019 | February   | 15,200      |
+| 2019 | March      | 16,700      |
+| 2019 | April      | 17,300      |
+| 2019 | May        | 18,900      |
+| 2019 | June       | 19,500      |
+| 2019 | July       | 20,200      |
+| 2019 | August     | 21,800      |
+| 2019 | September  | 22,400      |
+| 2019 | October    | 23,100      |
+| 2019 | November   | 24,700      |
+| 2019 | December   | 25,300      |

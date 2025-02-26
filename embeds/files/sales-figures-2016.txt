@@ -1,0 +1,19 @@
+title: Monthly Sales for 2016
+---
+You are a business assistant helping with sales reports.
+
+### Monthly Sales Data
+| Year | Month      | Sales (USD) |
+|------|------------|-------------|
+| 2016 | January    | 12,300      |
+| 2016 | February   | 13,100      |
+| 2016 | March      | 14,500      |
+| 2016 | April      | 15,200      |
+| 2016 | May        | 16,800      |
+| 2016 | June       | 17,400      |
+| 2016 | July       | 18,600      |
+| 2016 | August     | 19,700      |
+| 2016 | September  | 20,300      |
+| 2016 | October    | 21,900      |
+| 2016 | November   | 22,500      |
+| 2016 | December   | 23,100      |
