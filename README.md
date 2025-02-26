@@ -12,8 +12,8 @@ This project is a proof of concept for a web-based language model (WebLLM) chat 
 1. **Clone the repository:**
 
   ```sh
-  git clone https://github.com/your-repo/webllm.git
-  cd webllm
+  git clone https://github.com/mitchellsimoens/poc-webllm.git
+  cd poc-webllm
   ```
 
 2. **Install dependencies:**
